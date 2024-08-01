@@ -9,7 +9,6 @@
 
     <ItemGroup>
       <Folder Include="interpreter\" />
-      <Folder Include="parser\" />
     </ItemGroup>
 
 </Project>
