@@ -1,0 +1,7 @@
+LET A = 0
+
+WHILE A < 10000000 DO
+    LET A = A+1
+END
+
+PRINT A
