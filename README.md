@@ -2,6 +2,7 @@
 - Just another BASIC-inspired language interpreter written in C#
 - C# code documentation can be found in [DEV_DOCS.md](DEV_DOCS.md)
 - Available at: [https://github.com/gamecraftCZ/BasicSharp](https://github.com/gamecraftCZ/BasicSharp)
+- Source code file should be encoded in UTF-8
 
 ### Usage
 `basicsharp <source_code_file>`
