@@ -1,5 +1,19 @@
 namespace BasicSharp.lexer;
 
+public struct Position {
+    public readonly int line;
+    public readonly int column;
+
+    public Position(int line, int column) {
+        this.line = line;
+        this.column = column;
+    }
+
+    public override string ToString() {
+        return $"{line}:{column}";
+    }
+}
+
 public struct Token {
     // All possible types of the token
     public enum TokenType {
@@ -45,21 +59,19 @@ public struct Token {
         { "or", TokenType.OR }
     };
 
-    public readonly TokenType type; // Type of the Token
-    public readonly string lexeme;  // Original Lexeme representation of the Token
-    public readonly object? literal; // Parsed value of the Token
-    public readonly int line;       // Line number where the Token is located
-    public readonly int column;     // Column number where the first character of the Token is located
+    public readonly TokenType type;     // Type of the Token
+    public readonly string lexeme;      // Original Lexeme representation of the Token
+    public readonly object? literal;    // Parsed value of the Token
+    public readonly Position pos;       // Location of the Token in the source code
 
     public Token(TokenType type, string lexeme, object? literal, int line, int column) {
         this.type = type;
         this.lexeme = lexeme;
         this.literal = literal;
-        this.line = line;
-        this.column = column;
+        this.pos = new Position(line, column);
     }
 
     public override string ToString() {
-        return $"{type} ('{lexeme}') ('{literal}') (at {line}:{column})";
+        return $"{type} ('{lexeme}') ('{literal}') (at {pos})";
     }
 }

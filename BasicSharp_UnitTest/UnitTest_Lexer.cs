@@ -179,30 +179,30 @@ END
         var tokens = LexString(programCode).ToList();
 
         // Check line numbers
-        Assert.Equal(1, tokens[0].line); // LET
-        Assert.Equal(1, tokens[3].line); // 10
-        Assert.Equal(2, tokens[4].line); // IF
-        Assert.Equal(3, tokens[9].line); // PRINT
-        Assert.Equal(4, tokens[11].line); // ELSE
-        Assert.Equal(5, tokens[12].line); // PRINT
-        Assert.Equal(6, tokens[14].line); // END
+        Assert.Equal(1, tokens[0].pos.line); // LET
+        Assert.Equal(1, tokens[3].pos.line); // 10
+        Assert.Equal(2, tokens[4].pos.line); // IF
+        Assert.Equal(3, tokens[9].pos.line); // PRINT
+        Assert.Equal(4, tokens[11].pos.line); // ELSE
+        Assert.Equal(5, tokens[12].pos.line); // PRINT
+        Assert.Equal(6, tokens[14].pos.line); // END
 
         // Check column numbers
-        Assert.Equal(1, tokens[0].column); // LET
-        Assert.Equal(5, tokens[1].column); // x
-        Assert.Equal(7, tokens[2].column); // =
-        Assert.Equal(9, tokens[3].column); // 10
-        Assert.Equal(1, tokens[4].column); // IF
-        Assert.Equal(4, tokens[5].column); // x
-        Assert.Equal(6, tokens[6].column); // >
-        Assert.Equal(8, tokens[7].column); // 5
-        Assert.Equal(10, tokens[8].column); // THEN
-        Assert.Equal(5, tokens[9].column); // PRINT
-        Assert.Equal(11, tokens[10].column); // "x is greater than 5"
-        Assert.Equal(1, tokens[11].column); // ELSE
-        Assert.Equal(5, tokens[12].column); // PRINT
-        Assert.Equal(11, tokens[13].column); // "x is not greater than 5"
-        Assert.Equal(1, tokens[14].column); // END
+        Assert.Equal(1, tokens[0].pos.column); // LET
+        Assert.Equal(5, tokens[1].pos.column); // x
+        Assert.Equal(7, tokens[2].pos.column); // =
+        Assert.Equal(9, tokens[3].pos.column); // 10
+        Assert.Equal(1, tokens[4].pos.column); // IF
+        Assert.Equal(4, tokens[5].pos.column); // x
+        Assert.Equal(6, tokens[6].pos.column); // >
+        Assert.Equal(8, tokens[7].pos.column); // 5
+        Assert.Equal(10, tokens[8].pos.column); // THEN
+        Assert.Equal(5, tokens[9].pos.column); // PRINT
+        Assert.Equal(11, tokens[10].pos.column); // "x is greater than 5"
+        Assert.Equal(1, tokens[11].pos.column); // ELSE
+        Assert.Equal(5, tokens[12].pos.column); // PRINT
+        Assert.Equal(11, tokens[13].pos.column); // "x is not greater than 5"
+        Assert.Equal(1, tokens[14].pos.column); // END
     }
 
     [Fact]
@@ -215,20 +215,20 @@ END
         var tokens = LexString(programCode).ToList();
 
         // Check line numbers
-        Assert.Equal(1, tokens[0].line); // LET
-        Assert.Equal(1, tokens[4].line); // REM
-        Assert.Equal(2, tokens[5].line); // IF
-        Assert.Equal(2, tokens[10].line); // REM
-        Assert.Equal(3, tokens[11].line); // PRINT
-        Assert.Equal(4, tokens[13].line); // END
+        Assert.Equal(1, tokens[0].pos.line); // LET
+        Assert.Equal(1, tokens[4].pos.line); // REM
+        Assert.Equal(2, tokens[5].pos.line); // IF
+        Assert.Equal(2, tokens[10].pos.line); // REM
+        Assert.Equal(3, tokens[11].pos.line); // PRINT
+        Assert.Equal(4, tokens[13].pos.line); // END
 
         // Check column numbers
-        Assert.Equal(1, tokens[0].column); // LET
-        Assert.Equal(12, tokens[4].column); // REM
-        Assert.Equal(1, tokens[5].column); // IF
-        Assert.Equal(15, tokens[10].column); // REM
-        Assert.Equal(5, tokens[11].column); // PRINT
-        Assert.Equal(1, tokens[13].column); // END
+        Assert.Equal(1, tokens[0].pos.column); // LET
+        Assert.Equal(12, tokens[4].pos.column); // REM
+        Assert.Equal(1, tokens[5].pos.column); // IF
+        Assert.Equal(15, tokens[10].pos.column); // REM
+        Assert.Equal(5, tokens[11].pos.column); // PRINT
+        Assert.Equal(1, tokens[13].pos.column); // END
     }
 
     [Fact]
@@ -241,18 +241,18 @@ LET x = 5
         var tokens = LexString(programCode).ToList();
 
         // Check line numbers
-        Assert.Equal(1, tokens[0].line); // PRINT
-        Assert.Equal(1, tokens[1].line); // Start of the string
-        Assert.Equal(4, tokens[2].line); // LET (after the multi-line string)
-        Assert.Equal(4, tokens[4].line); // 5
+        Assert.Equal(1, tokens[0].pos.line); // PRINT
+        Assert.Equal(1, tokens[1].pos.line); // Start of the string
+        Assert.Equal(4, tokens[2].pos.line); // LET (after the multi-line string)
+        Assert.Equal(4, tokens[4].pos.line); // 5
 
         // Check column numbers
-        Assert.Equal(1, tokens[0].column); // PRINT
-        Assert.Equal(7, tokens[1].column); // Start of the string
-        Assert.Equal(1, tokens[2].column); // LET
-        Assert.Equal(5, tokens[3].column); // x
-        Assert.Equal(7, tokens[4].column); // x
-        Assert.Equal(9, tokens[5].column); // 5
+        Assert.Equal(1, tokens[0].pos.column); // PRINT
+        Assert.Equal(7, tokens[1].pos.column); // Start of the string
+        Assert.Equal(1, tokens[2].pos.column); // LET
+        Assert.Equal(5, tokens[3].pos.column); // x
+        Assert.Equal(7, tokens[4].pos.column); // x
+        Assert.Equal(9, tokens[5].pos.column); // 5
     }
 
     [Fact]
@@ -297,15 +297,15 @@ PRINT y
         Assert.Equal("y", tokens[13].lexeme);
 
         // Check line numbers
-        Assert.Equal(1, tokens[0].line); // LET x = 10
-        Assert.Equal(2, tokens[4].line); // REM comment
-        Assert.Equal(3, tokens[5].line); // PRINT x
-        Assert.Equal(4, tokens[7].line); // LET y = 30
-        Assert.Equal(4, tokens[11].line); // REM comment on same line as LET
-        Assert.Equal(5, tokens[12].line); // PRINT y
+        Assert.Equal(1, tokens[0].pos.line); // LET x = 10
+        Assert.Equal(2, tokens[4].pos.line); // REM comment
+        Assert.Equal(3, tokens[5].pos.line); // PRINT x
+        Assert.Equal(4, tokens[7].pos.line); // LET y = 30
+        Assert.Equal(4, tokens[11].pos.line); // REM comment on same line as LET
+        Assert.Equal(5, tokens[12].pos.line); // PRINT y
 
         // Check that no tokens were created for the commented-out LET y = 20
-        Assert.DoesNotContain(tokens, t => t.lexeme == "20" && t.line == 2);
+        Assert.DoesNotContain(tokens, t => t.lexeme == "20" && t.pos.line == 2);
     }
 
     [Fact]
