@@ -1,13 +1,14 @@
 using BasicSharp.common;
+using BasicSharp.interpreter;
 
 namespace BasicSharp.parser;
 
-public interface IExprVisitor<T> {
-    T visitUnaryExpr(UnaryExpr expr);
-    T visitBinaryExpr(BinaryExpr expr);
-    T visitGroupingExpr(GroupingExpr expr);
-    T visitLiteralExpr(LiteralExpr expr);
-    T visitVarExpr(VarExpr expr);
+public interface IExprVisitor {
+    Variable visitUnaryExpr(UnaryExpr expr);
+    Variable visitBinaryExpr(BinaryExpr expr);
+    Variable visitGroupingExpr(GroupingExpr expr);
+    Variable visitLiteralExpr(LiteralExpr expr);
+    Variable visitVarExpr(VarExpr expr);
 }
 
 /// <summary>
@@ -15,7 +16,7 @@ public interface IExprVisitor<T> {
 /// </summary>
 public abstract class Expr {
     public readonly Position pos;
-    public abstract T accept<T>(IExprVisitor<T> visitor);
+    public abstract Variable accept(IExprVisitor visitor);
     protected Expr(Position pos) { this.pos = pos; }
 }
 
@@ -32,7 +33,7 @@ public class UnaryExpr : Expr {
         this.right = right;
     }
 
-    public override T accept<T>(IExprVisitor<T> visitor) {
+    public override Variable accept(IExprVisitor visitor) {
         return visitor.visitUnaryExpr(this);
     }
 }
@@ -42,7 +43,6 @@ public enum BinaryOperator {
     MINUS,
     STAR,
     SLASH,
-    PERCENT,
     EQUAL_EQUAL,
     BANG_EQUAL,
     GREATER,
@@ -63,8 +63,8 @@ public class BinaryExpr : Expr {
         this.right = right;
     }
 
-    public override T accept<T>(IExprVisitor<T> visitor) {
-        return visitor.visitBinaryExpr(this);
+    public override Variable accept(IExprVisitor visitor) {
+         return visitor.visitBinaryExpr(this);
     }
 }
 
@@ -75,8 +75,8 @@ public class GroupingExpr : Expr {
         this.expression = expression;
     }
 
-    public override T accept<T>(IExprVisitor<T> visitor) {
-        return visitor.visitGroupingExpr(this);
+    public override Variable accept(IExprVisitor visitor) {
+         return visitor.visitGroupingExpr(this);
     }
 }
 
@@ -87,8 +87,8 @@ public class LiteralExpr : Expr {
         this.value = value;
     }
 
-    public override T accept<T>(IExprVisitor<T> visitor) {
-        return visitor.visitLiteralExpr(this);
+    public override Variable accept(IExprVisitor visitor) {
+         return visitor.visitLiteralExpr(this);
     }
 }
 
@@ -99,7 +99,7 @@ public class VarExpr : Expr {
         this.varName = varName;
     }
 
-    public override T accept<T>(IExprVisitor<T> visitor) {
-        return visitor.visitVarExpr(this);
+    public override Variable accept(IExprVisitor visitor) {
+         return visitor.visitVarExpr(this);
     }
 }

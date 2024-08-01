@@ -2,18 +2,18 @@ using BasicSharp.common;
 
 namespace BasicSharp.parser;
 
-public interface IStmtVisitor<T> {
-    T visitPrintStmt(PrintStmt stmt);
-    T visitInputStmt(InputStmt stmt);
-    T visitLetStmt(LetStmt stmt);
-    T visitToNumStmt(ToNumStmt stmt);
-    T visitToStrStmt(ToStrStmt stmt);
-    T visitRndStmt(RndStmt stmt);
-    T visitBlockStmt(BlockStmt stmt);
-    T visitIfStmt(IfStmt stmt);
-    T visitWhileStmt(WhileStmt stmt);
-    T visitContinueStmt(ContinueStmt stmt);
-    T visitBreakStmt(BreakStmt stmt);
+public interface IStmtVisitor {
+    void visitPrintStmt(PrintStmt stmt);
+    void visitInputStmt(InputStmt stmt);
+    void visitLetStmt(LetStmt stmt);
+    void visitToNumStmt(ToNumStmt stmt);
+    void visitToStrStmt(ToStrStmt stmt);
+    void visitRndStmt(RndStmt stmt);
+    void visitBlockStmt(BlockStmt stmt);
+    void visitIfStmt(IfStmt stmt);
+    void visitWhileStmt(WhileStmt stmt);
+    void visitContinueStmt(ContinueStmt stmt);
+    void visitBreakStmt(BreakStmt stmt);
 }
 
 /// <summary>
@@ -21,7 +21,7 @@ public interface IStmtVisitor<T> {
 /// </summary>
 public abstract class Stmt {
     public readonly Position pos;
-    public abstract T accept<T>(IStmtVisitor<T> visitor);
+    public abstract void accept(IStmtVisitor visitor);
     protected Stmt(Position pos) { this.pos = pos; }
 }
 
@@ -32,8 +32,8 @@ public class PrintStmt : Stmt {
         this.expr = expression;
     }
 
-    public override T accept<T>(IStmtVisitor<T> visitor) {
-        return visitor.visitPrintStmt(this);
+    public override void accept(IStmtVisitor visitor) {
+        visitor.visitPrintStmt(this);
     }
 }
 
@@ -46,8 +46,8 @@ public class InputStmt : Stmt {
         this.targetVarName = targetVarName;
     }
 
-    public override T accept<T>(IStmtVisitor<T> visitor) {
-        return visitor.visitInputStmt(this);
+    public override void accept(IStmtVisitor visitor) {
+        visitor.visitInputStmt(this);
     }
 }
 
@@ -60,8 +60,8 @@ public class LetStmt : Stmt {
         this.expr = expression;
     }
 
-    public override T accept<T>(IStmtVisitor<T> visitor) {
-        return visitor.visitLetStmt(this);
+    public override void accept(IStmtVisitor visitor) {
+        visitor.visitLetStmt(this);
     }
 }
 
@@ -74,8 +74,8 @@ public class ToNumStmt : Stmt {
         dstVarName = destinationVarName;
     }
 
-    public override T accept<T>(IStmtVisitor<T> visitor) {
-        return visitor.visitToNumStmt(this);
+    public override void accept(IStmtVisitor visitor) {
+        visitor.visitToNumStmt(this);
     }
 }
 
@@ -88,8 +88,8 @@ public class ToStrStmt : Stmt {
         dstVarName = destinationVarName;
     }
 
-    public override T accept<T>(IStmtVisitor<T> visitor) {
-        return visitor.visitToStrStmt(this);
+    public override void accept(IStmtVisitor visitor) {
+        visitor.visitToStrStmt(this);
     }
 }
 
@@ -104,8 +104,8 @@ public class RndStmt : Stmt {
         this.upperBound = upperBound;
     }
 
-    public override T accept<T>(IStmtVisitor<T> visitor) {
-        return visitor.visitRndStmt(this);
+    public override void accept(IStmtVisitor visitor) {
+        visitor.visitRndStmt(this);
     }
 }
 
@@ -116,8 +116,8 @@ public class BlockStmt : Stmt {
         this.statements = statements;
     }
 
-    public override T accept<T>(IStmtVisitor<T> visitor) {
-        return visitor.visitBlockStmt(this);
+    public override void accept(IStmtVisitor visitor) {
+        visitor.visitBlockStmt(this);
     }
 }
 
@@ -132,8 +132,8 @@ public class IfStmt : Stmt {
         this.elseBranch = elseBranch;
     }
 
-    public override T accept<T>(IStmtVisitor<T> visitor) {
-        return visitor.visitIfStmt(this);
+    public override void accept(IStmtVisitor visitor) {
+        visitor.visitIfStmt(this);
     }
 }
 
@@ -146,23 +146,23 @@ public class WhileStmt : Stmt {
         this.body = body;
     }
 
-    public override T accept<T>(IStmtVisitor<T> visitor) {
-        return visitor.visitWhileStmt(this);
+    public override void accept(IStmtVisitor visitor) {
+        visitor.visitWhileStmt(this);
     }
 }
 
 public class ContinueStmt : Stmt {
     public ContinueStmt(Position positionInCode) : base(positionInCode) { }
 
-    public override T accept<T>(IStmtVisitor<T> visitor) {
-        return visitor.visitContinueStmt(this);
+    public override void accept(IStmtVisitor visitor) {
+        visitor.visitContinueStmt(this);
     }
 }
 
 public class BreakStmt : Stmt {
     public BreakStmt(Position positionInCode) : base(positionInCode) { }
 
-    public override T accept<T>(IStmtVisitor<T> visitor) {
-        return visitor.visitBreakStmt(this);
+    public override void accept(IStmtVisitor visitor) {
+        visitor.visitBreakStmt(this);
     }
 }
