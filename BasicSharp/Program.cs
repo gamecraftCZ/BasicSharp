@@ -46,10 +46,6 @@ static class Program {
             // Parse the Tokens list to Abstract Syntax Tree (AST) for each separate executable statement
             IEnumerable<Stmt> stmtsEnumerable = Parser.parse(tokensEnumerable);
 
-            foreach (Token token in tokensEnumerable) {
-                Console.WriteLine(token);
-            }
-
             // Interpret the parsed ASTs
             Interpreter interpreter = new();
             foreach (Stmt stmt in stmtsEnumerable) {
