@@ -56,7 +56,8 @@ Variable are declared and assigned using `LET` keyword
     - Arithmetic `+`,`-`,`*`,`/`
         - `<number> OP <number> -> <number>`
         - eg. `7 / 2 -> 3.5`
-        - `DivisionByZero` runtime error may occur.
+        - Division by zero results in Infinity or -Infinity
+        - 0/0 results in NaN
 
     - Negation `-`
         - `- <number> -> <number>`
@@ -76,7 +77,7 @@ Variable are declared and assigned using `LET` keyword
     - Comparing `==`, `<>`
         - `<string> OP <string> -> <boolean>`
         - eg. `"Hello" == "hello" -> false`
-        - Comparing is case sensitive
+        - Comparing is case-sensitive
 
 - Boolean
     - Negation `NOT `
@@ -189,10 +190,9 @@ Variable are declared and assigned using `LET` keyword
 
 
 ### Runtime errors
-If error occur, execution of code stops and error message is printed to stderr.
+Things that can result in runtime error:
 
-- `DivisionByZero` = tried to divide by 0
-- `LoopControlOutsideLoop` = using `continue` or `break` outside of loop body
-- `InvalidNumberFormat` = parsing string that is not a number using `TONUM`
-- `VariableNotDeclared` = using variable that was not declared before
-- `ConditionNotBoolean` = condition in `IF` or `WHILE` evaluated to non-boolean value
+- Using `continue` or `break` outside of loop body
+- Parsing string that is not a number using `TONUM`
+- Using variable that was not declared before
+- Condition in `IF` or `WHILE` evaluated to non-boolean value

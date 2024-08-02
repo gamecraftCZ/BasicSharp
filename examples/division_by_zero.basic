@@ -1,0 +1,4 @@
+PRINT 42 / 0
+PRINT -42 / 0
+PRINT 42 / -0
+PRINT 0 / 0
