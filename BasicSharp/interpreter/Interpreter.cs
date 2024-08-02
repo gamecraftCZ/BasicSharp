@@ -1,3 +1,4 @@
+using System.Globalization;
 using BasicSharp.common;
 using BasicSharp.parser;
 
@@ -6,6 +7,11 @@ namespace BasicSharp.interpreter;
 public class Interpreter : IExprVisitor, IStmtVisitor {
     // Global variables
     private Dictionary<string, Variable> _globalVariables = new();
+    private Random rng;
+
+    public Interpreter(Random? rng = null) {
+        this.rng = rng ?? new Random();
+    }
 
     public void interpretStatement(Stmt stmt) {
         try {
@@ -203,7 +209,7 @@ public class Interpreter : IExprVisitor, IStmtVisitor {
                 break;
 
             case VariableType.STRING:
-                if (!double.TryParse((string)srcValue.Value, out double numValue)) {
+                if (!double.TryParse((string)srcValue.Value, CultureInfo.InvariantCulture, out double numValue)) {
                     throw new InterpreterError($"Cannot convert '{srcValue.Value}' to number.", stmt.pos);
                 }
                 setVarValue(stmt.dstVarName, new NumberVariable(numValue));
@@ -229,7 +235,7 @@ public class Interpreter : IExprVisitor, IStmtVisitor {
         if (lowerBound.Type == VariableType.NUMBER && upperBound.Type == VariableType.NUMBER) {
             double lower = (double)lowerBound.Value;
             double upper = (double)upperBound.Value;
-            double randomValue = Math.Floor(new Random().NextDouble() * (upper - lower) + lower);
+            double randomValue = Math.Floor(this.rng.NextDouble() * (upper - lower) + lower);
             setVarValue(stmt.targetVarName, new NumberVariable(randomValue));
 
         } else {

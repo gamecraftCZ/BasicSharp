@@ -20,11 +20,11 @@ public class NumberVariable(double value) : Variable(VariableType.NUMBER) {
         // Print whole number as integer
         double val = (double)Value;
         if (Math.Abs(val % 1) < double.Epsilon * 100) {
-            return $"{val:N0}";
+            return FormattableString.Invariant($"{val:N0}");  // Invariant to avoid localization
         }
 
         // Else format using {:.2f} to print 2 decimal places
-        return $"{val:0.00}";
+        return FormattableString.Invariant($"{val:0.00}");  // Invariant to avoid localization
     }
 }
 
