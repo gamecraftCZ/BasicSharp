@@ -22,7 +22,8 @@ public struct Token {
         IF, THEN, ELSE, END, WHILE, DO, BREAK, CONTINUE,
         NOT, AND, OR,
 
-        EOF_TOKEN
+        EOF_TOKEN,
+        EOS_TOKEN,  // Explicit end of statement (semicolon)
     }
 
     // Mapping of keywords to their respective TokenType

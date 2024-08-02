@@ -35,6 +35,7 @@ public class Parser {
     }
 
     private Stmt declaration() {
+        while (matchAdvance(Token.TokenType.EOS_TOKEN)) { }  // Skip semicolons (end of statement)
         if (matchAdvance(Token.TokenType.LET)) return letDeclaration();
         return statement();
     }

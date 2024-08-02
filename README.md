@@ -107,6 +107,9 @@ Variable are declared and assigned using `LET` keyword
 
 - There is no such value as null. Every variable must have a value.
 
+- You can use explicit semicolon `;` to separate statements/expressions explicitly. 
+   Otherwise expressions can span multiple lines.
+
 #### Input / Output
 - `PRINT <expr>`
     - Evaluates and prints expr to stdout with new line at the end

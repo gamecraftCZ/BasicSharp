@@ -66,6 +66,7 @@ public class Lexer {
             case '+': return createToken(Token.TokenType.PLUS, c);
             case '*': return createToken(Token.TokenType.STAR, c);
             case '/': return createToken(Token.TokenType.SLASH, c);
+            case ';': return createToken(Token.TokenType.EOS_TOKEN, c);
             case '=':
                 if (matchNext('=')) {
                     advance();
