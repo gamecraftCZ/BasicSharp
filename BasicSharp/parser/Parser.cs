@@ -27,7 +27,7 @@ public class Parser {
     /// <param name="tokensEnumerable"></param>
     /// <returns>IEnumerable of </returns>
     public static IEnumerable<Stmt> parse(IEnumerable<Token> tokensEnumerable) {
-        Parser parser = new Parser(tokensEnumerable);
+        Parser parser = new(tokensEnumerable);
 
         while (!parser.isEnd()) {
             yield return parser.declaration();
@@ -382,6 +382,11 @@ public class Parser {
         throw createError(errorMessage);
     }
 
+    /// <summary>
+    /// Creates a ParserError with the given message and the position of the current token.
+    /// </summary>
+    /// <param name="message">Message of the Error</param>
+    /// <returns>ParserError</returns>
     private ParserError createError(string message) {
         return new ParserError(message, _currentToken.pos);
     }

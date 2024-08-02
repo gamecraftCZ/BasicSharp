@@ -25,6 +25,9 @@ public class Interpreter : IExprVisitor, IStmtVisitor {
 
     #region Helpers
 
+    /// <summary>
+    /// Returns string representation of the Variable type.
+    /// </summary>
     private string getLiteralTypename(Variable variable) {
         return variable.Type switch {
             VariableType.NUMBER => "number",
@@ -34,18 +37,40 @@ public class Interpreter : IExprVisitor, IStmtVisitor {
         };
     }
 
+    /// <summary>
+    /// Get variable value by name from the global variables Dictionary.
+    ///  If the variable is not defined, throws an InterpreterError.
+    /// </summary>
+    /// <param name="varName"></param>
+    /// <param name="expr"></param>
+    /// <returns>Variable</returns>
+    /// <exception cref="InterpreterError"></exception>
     private Variable getVarValue(string varName, Expr expr) {
         if (!_globalVariables.TryGetValue(varName, out Variable? value)) {
             throw new InterpreterError($"Variable '{varName}' is not defined.", expr.pos);
         }
         return value;
     }
+    /// <summary>
+    /// Get variable value by name from the global variables Dictionary.
+    ///  If the variable is not defined, throws an InterpreterError.
+    /// </summary>
+    /// <param name="varName"></param>
+    /// <param name="stmt"></param>
+    /// <returns>Variable</returns>
+    /// <exception cref="InterpreterError"></exception>
     private Variable getVarValue(string varName, Stmt stmt) {
         if (!_globalVariables.TryGetValue(varName, out Variable? value)) {
             throw new InterpreterError($"Variable '{varName}' is not defined.", stmt.pos);
         }
         return value;
     }
+
+    /// <summary>
+    /// Set variable value by name in the global variables Dictionary.
+    /// </summary>
+    /// <param name="varName"></param>
+    /// <param name="value"></param>
     private void setVarValue(string varName, Variable value) {
         _globalVariables[varName] = value;
     }
